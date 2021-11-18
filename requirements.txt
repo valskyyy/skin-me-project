@@ -1,5 +1,5 @@
 tensorflow
 streamlit
 opencv-python
-PIL
+Pillow
 numpy
