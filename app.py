@@ -4,7 +4,7 @@ model = load_model('skin_model.hdf5')
 #-------
 
 import streamlit as st
-st.title('Bien dans ma peau')
+st.title('Bienvenue sur SkinMe !')
 
 st.subheader('BDMP permet aux particuliers de diagnostiquer de manière autonome leurs lésions de peau (type grain de beauté), d’évaluer un risque potentiel et de prendre rendez-vous chez un dermatologue si besoin.')
 
