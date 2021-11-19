@@ -1,5 +1,5 @@
-import tensorflow as tf
-model = tf.keras.models.load_model('skin_model.hdf5')
+from  tensorflow.keras.models import load_model
+model = load_model('skin_model.hdf5')
 
 #-------
 
