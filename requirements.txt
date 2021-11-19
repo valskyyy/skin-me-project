@@ -1,6 +1,6 @@
 tensorflow-cpu
 streamlit
-opencv-python
+opencv-python-headless
 Pillow
 numpy
 gunicorn
