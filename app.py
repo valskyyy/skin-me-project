@@ -1,5 +1,5 @@
 from  tensorflow.keras.models import load_model
-model = load_model('skin_model.h5')
+model = load_model('https://www.mydatapassion.com/model256_3classes_20epochs.h5')
 import joblib
 import tensorflow as tf
 import pandas as pd
