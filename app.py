@@ -43,7 +43,7 @@ image = Image.open('skin_me_logo.png')
 st.image(image, output_format="PNG")
 st.title('Bienvenue sur SkinMe !')
 
-st.subheader("SkinMe vous permet d’établir un premier diagnostic de vos lésions de la peau, d’évaluer un risque potentiel et de prendre rendez-vous chez un dermatologue si besoin.")
+st.subheader("SkinMe vous permet d'établir une première évaluation de vos lésions de la peau, d'estimer un risque potentiel et de prendre rendez-vous chez un dermatologue si besoin.")
 
 gender = st.radio(
 "Vous êtes",
@@ -53,7 +53,7 @@ age = st.number_input('Votre age', min_value = 0, max_value = 84, value = 30, st
 
 localization = st.radio(
 "Localisation de la lésion",
-('Cuir chevelu', 'Oreille', 'Visage', 'Dos', 'Buste', 'Poitrine', 'Membre supérieur', 'Abdomen', 'Membre inférieur', 'Zone génitale', 'Cou', 'Main', 'Pied'))
+('Cuir chevelu','Visage','Oreille','Cou','Poitrine','Membre supérieur','Buste','Dos','Main','Abdomen', 'Zone génitale','Membre inférieur','Pied'))
 
 
 file = st.file_uploader("Choisissez votre photo (assurez-vous d’avoir une seule lésion par photo) :", type=["jpg", "png","jpeg"])
