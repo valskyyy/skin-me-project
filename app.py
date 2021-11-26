@@ -123,7 +123,7 @@ else:
 
 
         with st.container():
-            with st.markdown(DIAGNOSTIC,unsafe_allow_html=True)
+            st.markdown(DIAGNOSTIC,unsafe_allow_html=True)
 
 
         st.error(" La lésion que nous avons analysée est potentiellement dangereuse. Nous vous conseillons de demander un avis médical sans attendre.")
