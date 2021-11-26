@@ -7,4 +7,3 @@ gunicorn
 requests
 joblib
 scikit-learn
-pickle
