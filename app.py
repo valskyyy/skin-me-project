@@ -16,7 +16,7 @@ derm_api_url = "https://public.opendatasoft.com/api/records/1.0/search/?dataset=
 #Template for dermatologist search results
 
 DERMATOLOGIST_SEARCH_RESULTS = """
-<div style = width:100%;height:100%;margin:1px;padding:5px;margin:10px;position:relative;border-radius:5px;background-color:#f0f2f6>
+<div style = width:100%;height:100%;margin:1px;padding:5px;margin:10px;position:relative;border-radius:5px;background-color:#3e778a>
 <h5>{}<br /></h5>
 <h6>{}<br /></h6>
 <h7>{}<br /></h7>
