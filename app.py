@@ -24,6 +24,10 @@ DERMATOLOGIST_SEARCH_RESULTS = """
 <h8>{}<br /></h8>
 </div>
 """
+DIAGNOSTIC = """
+<div style = width:100%;height:100%;margin:1px;padding:5px;margin:10px;position:relative;border-radius:5px;background-color:#3e778a>
+<h6>fmsdlkflksdf fsdfmlskfmlksdf sdfmlsdkfmlsdkf</h6>
+</div>"""
 
 import streamlit as st
 image = Image.open('skin_me_logo.png')
@@ -103,7 +107,6 @@ def import_and_predict(image_data, tabular_data, model):
 if file is None:
     st.text("Please upload an image file")
 else:
-    st.spinner(text="In progress...")
     image = Image.open(file)
     st.image(image, use_column_width=True)
     prediction = import_and_predict(image, tabular, model)
@@ -117,6 +120,12 @@ else:
     elif np.argmax(prediction) == 0:
         st.title('Votre diagnostic:')
         st.write(np.argmax(prediction))
+
+
+        with st.container():
+            with st.markdown(DIAGNOSTIC,unsafe_allow_html=True)
+
+
         st.error(" La lésion que nous avons analysée est potentiellement dangereuse. Nous vous conseillons de demander un avis médical sans attendre.")
         st.write("&#128073; Notre évaluation n’est en aucun cas un diagnostic médical. Elle doit être confirmée par un médecin.")
         #Find a dermatologist form
