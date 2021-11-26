@@ -106,6 +106,7 @@ else:
     image = Image.open(file)
     st.image(image, use_column_width=True)
     prediction = import_and_predict(image, tabular, model)
+    st.spinner(text="In progress...")
     
     if np.argmax(prediction) == 1:
         st.title('Votre diagnostic:')
