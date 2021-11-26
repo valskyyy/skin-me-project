@@ -106,11 +106,13 @@ else:
     
     if np.argmax(prediction) == 1:
         st.title('Votre diagnostic:')
+        st.write(np.argmax(prediction))
         st.success("Cette lésion semble bénigne. N’hésitez toutefois pas à consulter un dermatologue à la moindre tache suspecte.")
         st.write("&#128073; Notre évaluation n’est en aucun cas un diagnostic médical. Elle doit être confirmée par un médecin. N'hésitez pas à consulter si vous avez le moindre doute.")
     elif np.argmax(prediction) == 0:
         st.title('Votre diagnostic:')
-        st.error("Le diagnostic de votre lésion semble mauvais. Nous vous conseillons de repidement prendre rendez-vous chez un dermatologue afin de compléter le diagnostic par un professionnel.")
+        st.write(np.argmax(prediction))
+        st.error(" La lésion que nous avons analysée est potentiellement dangereuse. Nous vous conseillons de demander un avis médical sans attendre.")
         st.write("&#128073; Notre évaluation n’est en aucun cas un diagnostic médical. Elle doit être confirmée par un médecin.")
         #Find a dermatologist form
         
@@ -119,6 +121,7 @@ else:
             first, second = st.columns([2,1])
             with first:
                 city = st.text_input('Où ça ?:', placeholder="ex : '75009', '59', 'Lille', 'Creuse'...")
+                max_results = st.slider (label = "Nombre maximum de résultats", min_value=5, max_value=50, value=5, step=5)
             with second:
                 st.text(".")
                 submit = st.form_submit_button("Recherche")
@@ -127,7 +130,7 @@ else:
         with col1:
             if submit:
                 search_url = derm_api_url.format(city)
-                request = requests.get("https://public.opendatasoft.com/api/records/1.0/search/?dataset=medecins&q={}&rows=100&facet=civilite&facet=column_12&facet=column_13&facet=column_14&facet=column_16&facet=libelle_profession&facet=type_dacte_realise&facet=commune&facet=nom_epci&facet=nom_dep&facet=nom_reg&facet=insee_reg&facet=insee_dep&facet=libelle_regroupement&facet=libelle&facet=libelle_acte_clinique&facet=dep&refine.libelle_profession=Dermatologue+et+vénérologue".format(city))
+                request = requests.get("https://public.opendatasoft.com/api/records/1.0/search/?dataset=medecins&q={}&rows={}&facet=civilite&facet=column_12&facet=column_13&facet=column_14&facet=column_16&facet=libelle_profession&facet=type_dacte_realise&facet=commune&facet=nom_epci&facet=nom_dep&facet=nom_reg&facet=insee_reg&facet=insee_dep&facet=libelle_regroupement&facet=libelle&facet=libelle_acte_clinique&facet=dep&refine.libelle_profession=Dermatologue+et+vénérologue".format(city,max_results))
                 data = request.json()
                 number_results = len(data['records'])
                 st.subheader("{} dermatologues trouvés:".format(number_results, city))
@@ -150,7 +153,8 @@ else:
 
     elif np.argmax(prediction) == 2:
         st.title('Votre diagnostic:')
-        st.warning(" La lésion que nous avons analysée est potentiellement dangereuse. Nous vous conseillons de demander un avis médical sans attendre.")
+        st.write(np.argmax(prediction))
+        st.warning("La photo met en évidence une lésion suspecte. Seul un médecin est habilité à dresser un diagnostic précis et complet en pareilles circonstances. Nous vous conseillons de prévoir un rendez-vous de contrôle chez un dermatologue.")
         st.write("&#128073; Notre évaluation n’est en aucun cas un diagnostic médical. Elle doit être confirmée par un médecin.")
         #Find a dermatologist form
         
@@ -159,6 +163,7 @@ else:
             first, second = st.columns([2,1])
             with first:
                 city = st.text_input('Où ça ?:', placeholder="ex : '75009', '59', 'Lille', 'Creuse'...")
+                max_results = st.slider (label = "Nombre maximum de résultats", min_value=5, max_value=50, value=5, step=5)
             with second:
                 st.text(".")
                 submit = st.form_submit_button("Recherche")
@@ -167,7 +172,7 @@ else:
         with col1:
             if submit:
                 search_url = derm_api_url.format(city)
-                request = requests.get("https://public.opendatasoft.com/api/records/1.0/search/?dataset=medecins&q={}&rows=100&facet=civilite&facet=column_12&facet=column_13&facet=column_14&facet=column_16&facet=libelle_profession&facet=type_dacte_realise&facet=commune&facet=nom_epci&facet=nom_dep&facet=nom_reg&facet=insee_reg&facet=insee_dep&facet=libelle_regroupement&facet=libelle&facet=libelle_acte_clinique&facet=dep&refine.libelle_profession=Dermatologue+et+vénérologue".format(city))
+                request = requests.get("https://public.opendatasoft.com/api/records/1.0/search/?dataset=medecins&q={}&rows={}&facet=civilite&facet=column_12&facet=column_13&facet=column_14&facet=column_16&facet=libelle_profession&facet=type_dacte_realise&facet=commune&facet=nom_epci&facet=nom_dep&facet=nom_reg&facet=insee_reg&facet=insee_dep&facet=libelle_regroupement&facet=libelle&facet=libelle_acte_clinique&facet=dep&refine.libelle_profession=Dermatologue+et+vénérologue".format(city,max_results))
                 data = request.json()
                 number_results = len(data['records'])
                 st.subheader("{} dermatologues trouvés:".format(number_results, city))
@@ -186,4 +191,3 @@ else:
                     #st.write(tel)
                     conv = data['records'][i]['fields']['column_14']
                     st.markdown(DERMATOLOGIST_SEARCH_RESULTS.format(name,job,adress,tel,conv),unsafe_allow_html=True)
-    
