@@ -4,6 +4,7 @@ import joblib
 import tensorflow as tf
 import pandas as pd
 import itertools
+from PIL import Image, ImageOps
 enc = joblib.load('encoder.joblib')
 
 #-------
@@ -25,6 +26,8 @@ DERMATOLOGIST_SEARCH_RESULTS = """
 """
 
 import streamlit as st
+image = Image.open('skin_me_logo.png')
+st.image(image, output_format="PNG")
 st.title('Bienvenue sur SkinMe !')
 
 st.subheader("SkinMe vous permet d’établir un premier diagnostic de vos lésions de la peau, d’évaluer un risque potentiel et de prendre rendez-vous chez un dermatologue si besoin.")
@@ -45,7 +48,7 @@ st.write(gender, age, localization)
 #----------
 
 import cv2
-from PIL import Image, ImageOps
+
 import numpy as np
 
 age_input = (age // 5) * 5
