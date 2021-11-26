@@ -16,17 +16,26 @@ derm_api_url = "https://public.opendatasoft.com/api/records/1.0/search/?dataset=
 #Template for dermatologist search results
 
 DERMATOLOGIST_SEARCH_RESULTS = """
-<div style = width:100%;height:100%;margin:1px;padding:5px;margin:10px;position:relative;border-radius:5px;background-color:#3e778a>
+<div style = width:100%;height:100%;margin:1px;padding:10px;margin:10px;position:relative;border-radius:5px;background-color:#3e778a>
 <h5>{}<br /></h5>
 <h6>{}<br /></h6>
 <h7>{}<br /></h7>
 <h7>{}<br /></h7>
 <h8>{}<br /></h8>
+<h8>{}<br /></h8>
 </div>
 """
-DIAGNOSTIC = """
-<div style = width:100%;height:100%;margin:1px;padding:5px;margin:10px;position:relative;border-radius:5px;background-color:#3e778a>
-<h6>fmsdlkflksdf fsdfmlskfmlksdf sdfmlsdkfmlsdkf</h6>
+DIAGNOSTIC_0 = """
+<div style = width:100%;height:100%;padding:10px;margin:10px;position:relative;border-radius:5px;background-color:#ffffff;opacity:0.8>
+<h6 style = color:#F0451D>La lésion que nous avons analysée est potentiellement dangereuse. Nous vous conseillons de demander un avis médical sans attendre.</h6>
+</div>"""
+DIAGNOSTIC_1 = """
+<div style = width:100%;height:100%;padding:10px;margin:10px;position:relative;border-radius:5px;background-color:#ffffff;opacity:0.8>
+<h6 style = color:#45A883>Cette lésion semble bénigne. N’hésitez toutefois pas à consulter un dermatologue à la moindre tache suspecte.</h6>
+</div>"""
+DIAGNOSTIC_2 = """
+<div style = width:100%;height:100%;padding:10px;margin:10px;position:relative;border-radius:5px;background-color:#ffffff;opacity:0.8>
+<h6 style = color:#F0911D>La photo met en évidence une lésion suspecte. Seul un médecin est habilité à dresser un diagnostic précis et complet en pareilles circonstances. Nous vous conseillons de prévoir un rendez-vous de contrôle chez un dermatologue.</h6>
 </div>"""
 
 import streamlit as st
@@ -48,7 +57,6 @@ localization = st.radio(
 
 
 file = st.file_uploader("Choisissez votre photo (assurez-vous d’avoir une seule lésion par photo) :", type=["jpg", "png","jpeg"])
-st.write(gender, age, localization)
 #----------
 
 import cv2
@@ -113,20 +121,14 @@ else:
     
     
     if np.argmax(prediction) == 1:
-        st.title('Votre diagnostic:')
-        st.write(np.argmax(prediction))
-        st.success("Cette lésion semble bénigne. N’hésitez toutefois pas à consulter un dermatologue à la moindre tache suspecte.")
+        st.title('Notre évaluation:')
+        with st.container():
+            st.markdown(DIAGNOSTIC_1,unsafe_allow_html=True)
         st.write("&#128073; Notre évaluation n’est en aucun cas un diagnostic médical. Elle doit être confirmée par un médecin. N'hésitez pas à consulter si vous avez le moindre doute.")
     elif np.argmax(prediction) == 0:
-        st.title('Votre diagnostic:')
-        st.write(np.argmax(prediction))
-
-
+        st.title('Notre évaluation:')
         with st.container():
-            st.markdown(DIAGNOSTIC,unsafe_allow_html=True)
-
-
-        st.error(" La lésion que nous avons analysée est potentiellement dangereuse. Nous vous conseillons de demander un avis médical sans attendre.")
+            st.markdown(DIAGNOSTIC_0,unsafe_allow_html=True)
         st.write("&#128073; Notre évaluation n’est en aucun cas un diagnostic médical. Elle doit être confirmée par un médecin.")
         #Find a dermatologist form
         
@@ -162,13 +164,14 @@ else:
                         print (" ")
                     #st.write(tel)
                     conv = data['records'][i]['fields']['column_14']
-                    st.markdown(DERMATOLOGIST_SEARCH_RESULTS.format(name,job,adress,tel,conv),unsafe_allow_html=True)
+                    card = data['records'][i]['fields']['column_16']
+                    st.markdown(DERMATOLOGIST_SEARCH_RESULTS.format(name,job,adress,tel,conv, card),unsafe_allow_html=True)
     
 
     elif np.argmax(prediction) == 2:
-        st.title('Votre diagnostic:')
-        st.write(np.argmax(prediction))
-        st.warning("La photo met en évidence une lésion suspecte. Seul un médecin est habilité à dresser un diagnostic précis et complet en pareilles circonstances. Nous vous conseillons de prévoir un rendez-vous de contrôle chez un dermatologue.")
+        st.title('Notre évaluation:')
+        with st.container():
+            st.markdown(DIAGNOSTIC_2,unsafe_allow_html=True)
         st.write("&#128073; Notre évaluation n’est en aucun cas un diagnostic médical. Elle doit être confirmée par un médecin.")
         #Find a dermatologist form
         
@@ -204,4 +207,5 @@ else:
                         print (" ")
                     #st.write(tel)
                     conv = data['records'][i]['fields']['column_14']
-                    st.markdown(DERMATOLOGIST_SEARCH_RESULTS.format(name,job,adress,tel,conv),unsafe_allow_html=True)
+                    card = data['records'][i]['fields']['column_16']
+                    st.markdown(DERMATOLOGIST_SEARCH_RESULTS.format(name,job,adress,tel,conv, card),unsafe_allow_html=True)
