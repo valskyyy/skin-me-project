@@ -43,7 +43,7 @@ image = Image.open('skin_me_logo.png')
 st.image(image, output_format="PNG")
 st.title('Bienvenue sur SkinMe !')
 
-st.subheader("SkinMe vous permet d'établir une première évaluation de vos lésions de la peau, d'estimer un risque potentiel et de prendre rendez-vous chez un dermatologue si besoin.")
+st.subheader("CheckMySkin vous permet d'établir une première évaluation de vos lésions de la peau, d'estimer un risque potentiel et de prendre rendez-vous chez un dermatologue si besoin.")
 
 gender = st.radio(
 "Vous êtes",
