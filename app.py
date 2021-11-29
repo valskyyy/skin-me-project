@@ -41,7 +41,7 @@ DIAGNOSTIC_2 = """
 import streamlit as st
 image = Image.open('skin_me_logo.png')
 st.image(image, output_format="PNG")
-st.title('Bienvenue sur SkinMe !')
+st.title('Bienvenue sur CheckMySkin !')
 
 st.subheader("CheckMySkin vous permet d'établir une première évaluation de vos lésions de la peau, d'estimer un risque potentiel et de prendre rendez-vous chez un dermatologue si besoin.")
 
